@@ -1,0 +1,28 @@
+name: kvantum
+adopt-info: kvantum
+summary: Kvantum Themer for Snaps
+description: | 
+   Themes Qt Snaps With Kvantum Themes.
+confinement: strict
+compression: lzo
+grade: stable
+base: bare
+build-base: core22
+
+slots:
+    kvantum:
+        interface: content
+        source:
+          read:
+           - usr/share/Kvantum/*
+parts:
+    kvantum:
+        source: https://github.com/tsujan/Kvantum.git
+        plugin: cmake
+        override-pull:
+           craftctl default
+           craftctl set version=$(git describe --tags --abbrev=0) 
+        build-snaps:
+           - cmake
+        
+
