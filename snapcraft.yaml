@@ -1,8 +1,8 @@
 name: kvantum
 adopt-info: kvantum
-summary: Kvantum Themer for Snaps
+summary: Qt Themes Integrator
 description: | 
-   Themes Qt Snaps With Kvantum Themes.
+   Themes Qt Snaps, Just an Initiative.
 confinement: strict
 compression: lzo
 grade: stable
@@ -10,19 +10,24 @@ base: bare
 build-base: core22
 
 slots:
-    kvantum:
+    icon-themes:
         interface: content
         source:
           read:
-           - usr/share/Kvantum/*
+           - "."
 parts:
-    kvantum:
-        source: https://github.com/tsujan/Kvantum.git
-        plugin: cmake
-        override-pull:
-           craftctl default
-           craftctl set version=$(git describe --tags --abbrev=0) 
-        build-snaps:
-           - cmake
+    qt-themes:
+        plugin: nil
+        stage-packages:
+          - qt5-style-plugins
+          - qt5-gtk2-platformtheme
+          - kde-style-qtcurve-qt5
+          - qt5-style-kvantum-themes
+          - breeze-cursor-theme
+          - kde-style-breeze
+          - lxqt-themes
+          - lxqt-system-theme
+          - lxqt-qtplugin
+          - adwaita-qt
         
 
