@@ -1,33 +1,56 @@
 name: kvantum
+base: core22
 adopt-info: kvantum
-summary: Qt Themes Integrator
-description: | 
-   Themes Qt Snaps, Just an Initiative.
+grade: stable
 confinement: strict
 compression: lzo
-grade: stable
-base: bare
-build-base: core22
-
+architectures:
+  - build-on: amd64
+    build-for: amd64
+    
 slots:
-    icon-themes:
-        interface: content
-        source:
-          read:
-           - "."
-parts:
-    qt-themes:
-        plugin: nil
-        stage-packages:
-          - qt5-style-plugins
-          - qt5-gtk2-platformtheme
-          - kde-style-qtcurve-qt5
-          - qt5-style-kvantum-themes
-          - breeze-cursor-theme
-          - kde-style-breeze
-          - lxqt-themes
-          - lxqt-system-theme
-          - lxqt-qtplugin
-          - adwaita-qt
-        
+  kvantum-manager:
+    interface: dbus
+    bus: session
+    name: com.github.tsujan.kvantum
 
+apps:
+  kvantum:
+    command: usr/bin/kvantummanager
+    extensions:
+      - kde-neon
+    plugs:
+      - home
+      - raw-usb
+      - network
+      - network-status
+      - optical-drive
+      - removable-media
+    common-id: com.github.tsujan.kvantum
+    desktop: usr/share/applications/kvantummanager.desktop
+    
+parts:
+  kvantum:
+    source: https://github.com/tsujan/Kvantum.git
+    plugin: cmake
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+    build-packages:
+      - build-essential
+      - qttools5-dev-tools
+      - libqt5svg5-dev
+      - qtbase5-dev
+      - libqt5x11extras5-dev
+      - libx11-dev
+      - libxext-dev
+      - libqt5xml5
+      - libkf5windowsystem-dev
+      
+    build-snaps:
+      - kf5-5-105-qt-5-15-9-core22-sdk
+      - cmake
+      
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --tags --abbrev=0)
+   
