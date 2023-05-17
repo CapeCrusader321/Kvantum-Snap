@@ -32,6 +32,7 @@ apps:
 parts:
   kvantum:
     source: https://github.com/tsujan/Kvantum.git
+    source-depth: 1
     plugin: cmake
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
