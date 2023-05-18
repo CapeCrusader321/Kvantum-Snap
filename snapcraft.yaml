@@ -1,6 +1,9 @@
 name: kvantum
 base: core22
 adopt-info: kvantum
+summary: Theme Snap with Kvantum
+description: |
+  This is an attempt to bring kvantum theming in Snaps, still in early stage.
 grade: stable
 confinement: strict
 compression: lzo
