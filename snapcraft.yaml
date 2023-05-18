@@ -32,6 +32,7 @@ apps:
 parts:
   kvantum:
     source: https://github.com/tsujan/Kvantum.git
+    source-tag: V1.0.10
     plugin: cmake
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
@@ -43,7 +44,7 @@ parts:
       - qtbase5-dev
     override-pull: |
       craftctl default
-      craftctl set version=$(git describe --tags --abbrev=0)
+      craftctl set version=$(git describe --tags --abbrev=0 | cut -c 2-)
       cd Kvantum
       mkdir build && cd build
       cmake .. -DCMAKE_INSTALL_PREFIX=/usr
