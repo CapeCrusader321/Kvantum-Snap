@@ -39,6 +39,8 @@ parts:
       - kf5-5-105-qt-5-15-9-core22-sdk
     build-packages:
       - build-essential
+      - libx11-dev
+      - qtbase5-dev
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --tags --abbrev=0)
