@@ -1,6 +1,6 @@
 name: kvantum
 base: core22
-adopt-info: kvantum
+adopt-info: version
 summary: Theme Snap with Kvantum
 description: |
   This is an attempt to bring kvantum theming in Snaps, still in early stage.
@@ -24,19 +24,17 @@ apps:
       - kde-neon
     plugs:
       - home
-      - raw-usb
       - network
       - network-status
       - optical-drive
       - removable-media
     common-id: com.github.tsujan.kvantum
-    #desktop: usr/share/applications/kvantummanager.desktop
+    desktop: usr/share/applications/kvantummanager.desktop
     
 parts:
   kvantum:
-    source: https://github.com/tsujan/Kvantum.git
-    source-tag: V1.0.10
-    plugin: nil
+    source: https://github.com/tsujan/Kvantum/releases/download/V1.0.10/Kvantum-1.0.10.tar.xz
+    plugin: dump
     build-snaps:
       - kf5-5-105-qt-5-15-9-core22-sdk
       - cmake
@@ -44,15 +42,19 @@ parts:
       - build-essential
       - libx11-dev
       - qtbase5-dev
-    override-pull: |
-      craftctl default
-      craftctl set version=$(git describe --tags --abbrev=0 | cut -c 2-)
     override-build: |
       craftctl default
-      cd Kvantum
+      cd $CRAFT_PART_INSTALL/Kvantum
       mkdir build && cd build
       cmake .. -DCMAKE_INSTALL_PREFIX=/usr
       make
       make install
       
-      
+  version:
+    source: https://github.com/tsujan/Kvantum.git
+    plugin: nil
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --tags --abbrev=0 | cut -c 2-)
+    override-prime: |
+      rm -rf Kvantum* 
