@@ -46,9 +46,11 @@ parts:
       craftctl default
       cd $CRAFT_PART_INSTALL/Kvantum
       mkdir build && cd build
-      cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+      cmake .. -DCMAKE_INSTALL_PREFIX=/snap/kvantum/current/usr
       make
       make install
+    organize:
+      snap/kvantum/current/usr: usr  
       
   version:
     source: https://github.com/tsujan/Kvantum.git
