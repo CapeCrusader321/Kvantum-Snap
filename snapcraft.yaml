@@ -10,13 +10,24 @@ compression: lzo
 architectures:
   - build-on: amd64
     build-for: amd64
-    
+
+package-repositories:
+ - type: apt
+   ppa: papirus/papirus
+
+
 slots:
   kvantum-manager:
     interface: dbus
     bus: session
     name: com.github.tsujan.kvantum
-
+  kvantum:
+    interface: content
+    source:
+      read:
+        - $SNAP/usr/share/Kvantum/*
+        - $SNAP/usr/share/themes/*
+        
 apps:
   kvantum:
     command: usr/bin/kvantummanager
@@ -30,33 +41,11 @@ apps:
       - removable-media
     common-id: com.github.tsujan.kvantum
     desktop: usr/share/applications/kvantummanager.desktop
-    
+
 parts:
   kvantum:
-    source: https://github.com/tsujan/Kvantum/releases/download/V1.0.10/Kvantum-1.0.10.tar.xz
-    plugin: dump
-    build-snaps:
-      - kf5-5-105-qt-5-15-9-core22-sdk
-      - cmake
-    build-packages:
-      - build-essential
-      - libx11-dev
-      - qtbase5-dev
-    override-build: |
-      craftctl default
-      cd $CRAFT_PART_INSTALL/Kvantum
-      mkdir build && cd build
-      cmake .. -DCMAKE_INSTALL_PREFIX=/snap/kvantum/current/usr
-      make
-      make install
-    organize:
-      snap/kvantum/current/usr: usr  
-      
-  version:
-    source: https://github.com/tsujan/Kvantum.git
     plugin: nil
-    override-pull: |
-      craftctl default
-      craftctl set version=$(git describe --tags --abbrev=0 | cut -c 2-)
-    override-prime: |
-      rm -rf Kvantum* 
+    stage-packages:
+      - qt5-style-kvantum 
+      - adapta-kde 
+      - arc-kde
