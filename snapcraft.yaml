@@ -1,6 +1,6 @@
 name: kvantum
 base: core22
-version: 0.1
+version: 1.0.10
 summary: Theme Snap with Kvantum
 description: |
   This is an attempt to bring kvantum theming in Snaps, still in early stage.
