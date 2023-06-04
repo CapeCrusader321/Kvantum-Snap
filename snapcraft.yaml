@@ -9,12 +9,8 @@ confinement: strict
 compression: lzo
 architectures:
   - build-on: amd64
-    build-for: amd64
-
-package-repositories:
- - type: apt
-   ppa: papirus/papirus
-
+  - build-on: arm64
+  - build-on: armhf
 
 slots:
   kvantum-manager:
@@ -25,8 +21,7 @@ slots:
     interface: content
     source:
       read:
-        - $SNAP/usr/share/Kvantum/*
-        - $SNAP/usr/share/themes/*
+        - $SNAP/usr/share/Kvantum
         
 apps:
   kvantum:
@@ -44,8 +39,8 @@ apps:
 
 parts:
   kvantum:
-    plugin: nil
-    stage-packages:
-      - qt5-style-kvantum 
-      - adapta-kde 
-      - arc-kde
+    plugin: cmake
+    cmake-parameters:
+      -  
+    source: https://github.com/tsujan/Kvantum/releases/download/V1.0.10/Kvantum-1.0.10.tar.xz
+    
