@@ -25,8 +25,7 @@ slots:
     interface: content
     source:
       read:
-        - $SNAP/usr/share/Kvantum/*
-        - $SNAP/usr/share/themes/*
+        - $SNAP/usr/share/Kvantum
         
 apps:
   kvantum:
@@ -44,8 +43,8 @@ apps:
 
 parts:
   kvantum:
-    plugin: nil
-    stage-packages:
-      - qt5-style-kvantum 
-      - adapta-kde 
-      - arc-kde
+    plugin: cmake
+    cmake-parameters:
+      -  
+    source: https://github.com/tsujan/Kvantum/releases/download/V1.0.10/Kvantum-1.0.10.tar.xz
+    
